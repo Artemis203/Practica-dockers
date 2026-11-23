@@ -1,0 +1,20 @@
+name: Docker Challenge - Evaluacion automatica
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verificar Docker
+        run: |
+          docker --version
+          docker compose version
+      - name: Ejecutar evaluador
+        run: python3 .github/scripts/evaluate.py
